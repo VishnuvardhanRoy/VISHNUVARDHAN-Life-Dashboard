@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISHNUVARDHAN Daily Growth Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>VISHNUVARDHAN Daily Growth Tracker</h1>
+                <p class="subtitle">14-Hour High-Performance System | Jan 8 - Mar 10, 2026</p>
+                <div class="date-info">
+                    <span id="currentDate"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+            <button class="tab-btn" data-tab="daily-log">Daily Log</button>
+            <button class="tab-btn" data-tab="progress">3-Month Progress</button>
+            <button class="tab-btn" data-tab="calendar">Calendar</button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <!-- Monthly Cards -->
+                <div class="month-card">
+                    <h2>January (8-31)</h2>
+                    <div class="progress-item">
+                        <span>Days Logged</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="percentage" id="jan-percent">0%</span>
+                    </div>
+                </div>
+
+                <div class="month-card">
+                    <h2>February (Full Month)</h2>
+                    <div class="progress-item">
+                        <span>Days Logged</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="percentage" id="feb-percent">0%</span>
+                    </div>
+                </div>
+
+                <div class="month-card">
+                    <h2>March (1-10)</h2>
+                    <div class="progress-item">
+                        <span>Days Logged</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="percentage" id="mar-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Progress -->
+            <div class="categories-section">
+                <h2>Daily Category Completion</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-icon">🤖</div>
+                        <h3>AI/ML</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎨</div>
+                        <h3>Design</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎤</div>
+                        <h3>Communication</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">💼</div>
+                        <h3>Projects</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">📹</div>
+                        <h3>YouTube/Edit</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🏋️</div>
+                        <h3>Fitness</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">📘</div>
+                        <h3>Book Reading</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">📝</div>
+                        <h3>Reflection</h3>
+                        <div class="small-bar"><div class="small-fill" style="width: 0%"></div></div>
+                        <span class="cat-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Log Tab -->
+        <section id="daily-log" class="tab-content">
+            <div class="daily-log-section">
+                <h2>Today's Progress Log</h2>
+                <div class="date-selector">
+                    <input type="date" id="logDate" />
+                </div>
+                <form id="dailyForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>🤖 AI/ML (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="aiml" />
+                        </div>
+                        <div class="form-group">
+                            <label>🎨 Design (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="design" />
+                        </div>
+                        <div class="form-group">
+                            <label>🎤 Communication (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="communication" />
+                        </div>
+                        <div class="form-group">
+                            <label>💼 Projects (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="projects" />
+                        </div>
+                        <div class="form-group">
+                            <label>📹 YouTube/Edit (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="youtube" />
+                        </div>
+                        <div class="form-group">
+                            <label>🏋️ Fitness (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="fitness" />
+                        </div>
+                        <div class="form-group">
+                            <label>📘 Book Reading (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="book" />
+                        </div>
+                        <div class="form-group">
+                            <label>📝 Reflection (%)</label>
+                            <input type="number" min="0" max="100" value="0" class="category-input" data-category="reflection" />
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>📝 Daily Notes</label>
+                        <textarea id="dailyNotes" placeholder="Write your thoughts, wins, and improvements..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-save">Save Daily Log</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Progress Tab -->
+        <section id="progress" class="tab-content">
+            <div class="progress-section">
+                <h2>3-Month Progress Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h3>Overall Average</h3>
+                        <div class="big-number" id="overallAvg">0%</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Best Category</h3>
+                        <div class="big-number" id="bestCategory">--</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Days Completed</h3>
+                        <div class="big-number" id="daysLogged">0</div>
+                    </div>
+                </div>
+                <div class="detailed-progress">
+                    <h3>Category Averages (Jan 8 - Mar 10)</h3>
+                    <div id="categoryStats"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendar Tab -->
+        <section id="calendar" class="tab-content">
+            <div class="calendar-section">
+                <h2>Activity Calendar</h2>
+                <div id="calendar" class="calendar-grid"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
