@@ -270,5 +270,82 @@ document.addEventListener('change', (e) => {
   }
 });
 
+// Calendar Generation (Jan 8 - Mar 10, 2026)
+function generateCalendar() {
+  const calendarContainer = document.getElementById('calendar-container');
+  if (!calendarContainer) return;
+  
+  calendarContainer.innerHTML = '';
+  const startDate = new Date(2026, 0, 8);
+  const endDate = new Date(2026, 2, 10);
+  
+  let currentDate = new Date(startDate);
+  let monthContainer = null;
+  let currentMonth = -1;
+  
+  const monthNames = ['January', 'February', 'March'];
+  
+  while (currentDate <= endDate) {
+    if (currentDate.getMonth() !== currentMonth) {
+      currentMonth = currentDate.getMonth();
+      monthContainer = document.createElement('div');
+      monthContainer.className = 'month-calendar';
+      monthContainer.innerHTML = `<h3>${monthNames[currentMonth]} ${currentDate.getFullYear()}</h3><div class="calendar-grid"></div>`;
+      calendarContainer.appendChild(monthContainer);
+    }
+    
+    const calendarGrid = monthContainer.querySelector('.calendar-grid');
+    const dateStr = currentDate.toISOString().split('T')[0];
+    const dayCell = document.createElement('div');
+    dayCell.className = 'day-cell';
+    
+    const logData = JSON.parse(localStorage.getItem(`log_${dateStr}`) || '{"categories":{}}'  );
+    const completedCount = Object.values(logData.categories).filter(c => c.percentage > 0).length;
+    
+    const color = completedCount >= 5 ? '#10b981' : completedCount >= 3 ? '#f59e0b' : completedCount > 0 ? '#93c5fd' : '#e5e7eb';
+    
+    dayCell.innerHTML = `
+      <div class="day-number">${currentDate.getDate()}</div>
+      <div class="day-indicator" style="background: ${color};"></div>
+    `;
+    
+    dayCell.title = `${dateStr}: ${completedCount} categories completed`;
+    dayCell.style.cursor = 'pointer';
+    
+    dayCell.addEventListener('click', () => {
+      document.getElementById('logDate').value = dateStr;
+      loadDayData(dateStr);
+      document.querySelector('[data-tab="daily-log"]').click();
+    });
+    
+    calendarGrid.appendChild(dayCell);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+}
+
+function loadDayData(dateStr) {
+  const logData = JSON.parse(localStorage.getItem(`log_${dateStr}`) || '{"categories":{}}'  );
+  const categories = ['aiml', 'design', 'communication', 'projects', 'youtube', 'fitness', 'book', 'reflection'];
+  
+  categories.forEach(cat => {
+    const data = logData.categories[cat] || {};
+    const topicInput = document.querySelector(`.topic-input[data-category="${cat}"]`);
+    const timeInput = document.querySelector(`.time-input[data-category="${cat}"]`);
+    const percentInput = document.querySelector(`.category-input[data-category="${cat}"]`);
+    
+    if (topicInput) topicInput.value = data.topic || '';
+    if (timeInput) timeInput.value = data.time || 0;
+    if (percentInput) percentInput.value = data.percentage || 0;
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  generateCalendar();
+  updateCategoryCards();
+});
+
+// Refresh calendar when data changes
+window.addEventListener('storage', generateCalendar);
+
 // Initialize dashboard
 updateDashboard();
