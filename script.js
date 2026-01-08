@@ -209,5 +209,66 @@ function loadCalendarTab() {
   }
 }
 
+// Enhanced Features - Topic & Time Tracking
+function updateCategoryCards() {
+  const today = new Date().toISOString().split('T')[0];
+  const logData = JSON.parse(localStorage.getItem(`log_${today}`) || '{"categories":{}}'  );
+  const categories = ['aiml', 'design', 'communication', 'projects', 'youtube', 'fitness', 'book', 'reflection'];
+  
+  categories.forEach(cat => {
+    const data = logData.categories[cat] || {};
+    const topicElement = document.querySelector(`.topic-value[data-category="${cat}"]`);
+    const timeElement = document.querySelector(`.time-value[data-category="${cat}"]`);
+    const percentElement = document.querySelector(`.cat-percent[data-category="${cat}"]`);
+    
+    if (topicElement) topicElement.textContent = data.topic || '--';
+    if (timeElement) timeElement.textContent = (data.time || 0) + ' mins';
+    if (percentElement && data.percentage) percentElement.textContent = data.percentage + '%';
+  });
+}
+
+function saveCategoryData() {
+  const today = new Date().toISOString().split('T')[0];
+  const logData = { categories: {} };
+  const categories = ['aiml', 'design', 'communication', 'projects', 'youtube', 'fitness', 'book', 'reflection'];
+  
+  categories.forEach(cat => {
+    const topicInput = document.querySelector(`.topic-input[data-category="${cat}"]`);
+    const timeInput = document.querySelector(`.time-input[data-category="${cat}"]`);
+    const percentInput = document.querySelector(`.category-input[data-category="${cat}"]`);
+    
+    logData.categories[cat] = {
+      topic: topicInput ? topicInput.value : '',
+      time: timeInput ? parseInt(timeInput.value) || 0 : 0,
+      percentage: percentInput ? parseInt(percentInput.value) || 0 : 0
+    };
+  });
+  
+  localStorage.setItem(`log_${today}`, JSON.stringify(logData));
+  updateCategoryCards();
+}
+
+// Handle form submission
+const dailyForm = document.getElementById('dailyForm');
+if (dailyForm) {
+  dailyForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    saveCategoryData();
+    alert('Progress saved successfully!');
+  });
+}
+
+// Initialize cards on page load
+window.addEventListener('DOMContentLoaded', updateCategoryCards);
+
+// Auto-save on input change
+document.addEventListener('change', (e) => {
+  if (e.target.classList.contains('topic-input') || 
+      e.target.classList.contains('time-input') || 
+      e.target.classList.contains('category-input')) {
+    saveCategoryData();
+  }
+});
+
 // Initialize dashboard
 updateDashboard();
